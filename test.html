@@ -1,0 +1,29 @@
+<html>
+<head>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    console.log('Init');
+    jQuery(function(){
+      console.log('Page is loaded');
+      // jQuery.get('http://localhost:8888?name=Joanna&location=Chicago', function(response){
+      //   console.log('Data has been sent');
+      //   console.log(response);
+      // });
+    });
+  </script>
+</head>
+<body>
+  <h1>OkCupid Test Client</h1>
+
+  <a href="javascript:
+    var users = document.getElementsByClassName('user_info');
+    console.log(users.length);
+    for (var i in users) {
+      console.log(i);
+      console.log(users[i]);
+      var location = users[i].getElementsByClassName('location')[0].innerHTML.toString();
+      console.log(location);
+    }
+  void(0);">bookmarklet</a>
+</body>
+</html>
