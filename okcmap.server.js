@@ -17,7 +17,14 @@ function onServerCreated(request, response) {
   console.log('Request in');
 
   var parsed_url = url.parse(request.url, true);
-  collection.insert(parsed_url.query);
+  if (!parsed_url.query.hasOwnProperty('username')) {
+    return;
+  }
+  collection.findOne({username: parsed_url.query.username}, function(err, item) {
+    if (!item) {
+      collection.insert(parsed_url.query);
+    }
+  });
 
   response.writeHead(200, {'Content-Type': 'text/plain'});
   response.end('Request has been processed' + "\n");
