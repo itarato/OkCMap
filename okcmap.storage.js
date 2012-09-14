@@ -7,19 +7,18 @@ var db = new mongodb.Db(db_name, new mongodb.Server(host, port, {}), {native_par
 
 console.log('Storage init');
 
-exports.save = function(query) {
+exports.openCollection = function(callback) {
   db.open(function(err, db){
-    onDBOpen(err, db, query);
+    onDBOpen(err, db, callback);
   });
 }
 
-function onDBOpen(err, db, query) {
+function onDBOpen(err, db, callback) {
   db.collection(collection_name, function(err, collection){
-    onCollection(err, collection, query);
+    onCollection(err, collection, callback);
   });
 }
 
-function onCollection(err, collection, query) {
-  collection.insert(query);
-  db.close();
+function onCollection(err, collection, callback) {
+  callback(collection);
 }
