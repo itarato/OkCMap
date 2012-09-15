@@ -19,7 +19,7 @@
         var l = encodeURIComponent(u[i][_]('location')[0][$]);
         var m = parseInt(u[i][_]('match')[0][_]('percentage')[0][$]);
         var n = u[i][_]('username')[0][$];
-        var url = 'http://localhost:8888?location=' + l + '&match=' + m + '&username=' + n;
+        var url = 'http://localhost:8888/save?location=' + l + '&match=' + m + '&username=' + n;
         console.log(url);
         var xmlHttp = new XMLHttpRequest();
         xmlHttp.open("GET", url, true);

@@ -18,11 +18,17 @@ function onRequestReceived(request, response) {
 
   var parsed_url = url.parse(request.url, true);
 
-  if (true) {
-    doMapDataResponse(response);
-  }
-  else {
-    doDataSave(response, parsed_url);
+  switch (parsed_url.pathname) {
+    case '/list':
+      doMapDataResponse(response, parsed_url);
+      break;
+    case '/save':
+      doDataSave(response, parsed_url);
+      break
+    default:
+      response.writeHead(200, {'Content-Type': 'text/plain'});
+      response.end('NodeJS server is working' + "\n");
+      break;
   }
 }
 
@@ -41,15 +47,18 @@ function doDataSave(response, parsed_url) {
   response.end('Request has been processed' + "\n");
 }
 
-function doMapDataResponse(response) {
+function doMapDataResponse(response, parsed_url) {
   collection.find(function(err, cursor){
+    response.writeHead(200, {'Content-Type': 'script/javascript'});
+    var items = [];
+
     cursor.each(function(err, item){
       if (item) {
-        console.log(item);
+        items.push(item);
       }
       else {
-        response.writeHead(200, {'Content-Type': 'text/plain'});
-        response.end('hello');
+        response.write(parsed_url.query.callback + '(' + JSON.stringify(items) + ')');
+        response.end();
       }
     });
   });
