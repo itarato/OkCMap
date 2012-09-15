@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Google Maps JavaScript API v3 Example: Geocoding Simple</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBNtFU8ovrWSy7tEXc61ps9Aw0EFH3IvY&sensor=false"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+    <script>
+      var geocoder;
+      var map;
+
+      jQuery(function(){
+        geocoder = new google.maps.Geocoder();
+
+        var latlng = new google.maps.LatLng(30, -30);
+        var mapOptions = {
+          zoom: 3,
+          center: latlng,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+
+        map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+
+        jQuery.ajax({
+          type: 'GET',
+          url: 'localhost:8888/list',
+          dataType: 'jsonp',
+          success: function(response) {
+            console.log(response);
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+          }
+        });
+      });
+
+      function codeAddress() {
+        var address = document.getElementById('address').value;
+        geocoder.geocode( { 'address': address}, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            map.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location
+            });
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <div id="map_canvas" style="height:700px;"></div>
+  </body>
+</html>
