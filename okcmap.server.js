@@ -25,6 +25,12 @@ function onRequestReceived(request, response) {
     case '/save':
       doDataSave(response, parsed_url);
       break
+    case '/map':
+      var fs = require('fs');
+      var page = fs.readFileSync('./okcmap.map.html');
+      response.writeHead(200, {'Content-Type': 'text/html'});
+      response.end(page);
+      break;
     default:
       response.writeHead(200, {'Content-Type': 'text/plain'});
       response.end('NodeJS server is working' + "\n");
@@ -57,7 +63,7 @@ function doMapDataResponse(response, parsed_url) {
         items.push(item);
       }
       else {
-        response.write(parsed_url.query.callback + '(' + JSON.stringify(items) + ')');
+        response.write(JSON.stringify(items));
         response.end();
       }
     });

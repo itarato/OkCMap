@@ -25,8 +25,8 @@
 
         jQuery.ajax({
           type: 'GET',
-          url: 'localhost:8888/list',
-          dataType: 'jsonp',
+          url: 'http://localhost:8888/list',
+          dataType: 'json',
           success: function(response) {
             console.log(response);
           },
