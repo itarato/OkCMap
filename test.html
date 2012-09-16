@@ -31,7 +31,9 @@
 <body>
   <h1>OkCupid Test Client</h1>
 
-  <a href="javascript:crawl();void(0);">bookmarklet</a>
+  <a href="javascript:crawl();void(0);">bookmarklet proxy</a>
+
+  <a href="javascript:var _='getElementsByClassName';var $='innerHTML';var u=document[_]('match_row');for(var i=0;i<u.length;i++){var l=encodeURIComponent(u[i][_]('location')[0][$]);var m=parseInt(u[i][_]('match')[0][_]('percentage')[0][$]);var n=u[i][_]('username')[0][$];var url='http://localhost:8888/save?location='+l+'&match='+m+'&username='+n;console.log(url);var xmlHttp=new XMLHttpRequest;xmlHttp.open('GET',url,true);xmlHttp.send(null)};void(0);">bookmarklet full</a>
 
   <div id="match_results">  <div class="match_row match_row_alt0 clearfix  match_row_first" id="usr-Delgado89"> <div class="wrap"> <div class="user_info"> <a class="user_image ajax_load_profile_link" title="View Delgado89’s profile" href="/profile/Delgado89?cf=regular" > <img src="http://ak2.okccdn.com/php/load_okc_image.php/images/82x82/82x82/81x118/359x396/2/13695608242384392822.jpeg" border="0" alt="An image of Delgado89" width="82" height="82" class="hoverZoomLink">  </a> <h4 class="match_row_screenname"> <a class="ajax_load_profile_link" title="View Delgado89’s profile" href="/profile/Delgado89?cf=regular" > <span class="username">Delgado89</span> </a>  </h4> <p class="aso" style="display:"> 23<span>&nbsp;/&nbsp;</span> F<span>&nbsp;/&nbsp;</span>Straight<span>&nbsp;/&nbsp;</span>Single </p> <p class="location">Caguas, Puerto Rico</p> <p class="activity">    <span class="stoplight red"> <span class="icon"><span></span></span> Replies <em>very selectively</em> </span>   </p> </div> <div class="essay"> <p>  <strong> My self-summary </strong> Ok, so I'm from Puerto Rico but that doesn't mean I can't make
 friends or something more serious from here! I'm really fun and

@@ -27,28 +27,53 @@
           type: 'GET',
           url: 'http://localhost:8888/list',
           dataType: 'json',
-          success: function(response) {
-            console.log(response);
-          },
+          success: processMapResult,
           error: function(jqXHR, textStatus, errorThrown) {
             console.log(errorThrown);
           }
         });
       });
 
-      function codeAddress() {
-        var address = document.getElementById('address').value;
-        geocoder.geocode( { 'address': address}, function(results, status) {
-          if (status == google.maps.GeocoderStatus.OK) {
-            map.setCenter(results[0].geometry.location);
+      function lookupAddress(address, callback) {
+        geocoder.geocode({'address': address}, callback);
+      }
+
+      function processMapResult(response) {
+        console.log(response);
+        for (var idx in response) {
+          var user = response[idx];
+          if (user.hasOwnProperty('Xa')) {
             var marker = new google.maps.Marker({
-                map: map,
-                position: results[0].geometry.location
+              map: map,
+              position: new google.maps.LatLng(user['Xa'], user['Ya'])
             });
-          } else {
-            alert('Geocode was not successful for the following reason: ' + status);
           }
-        });
+          else {
+            (function(user){
+              lookupAddress(user.location, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                  jQuery.ajax({
+                    type: 'GET',
+                    url: 'http://localhost:8888/update?username=' + user.username + '&Xa=' + results[0].geometry.location.Xa + '&Ya=' + results[0].geometry.location.Ya,
+                    success: function(response) {
+                      console.log(response);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                      console.log(errorThrown);
+                    }
+                  });
+
+                  var marker = new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location
+                  });
+                } else {
+                  console.log('Geocode was not successful for the following reason: ' + status);
+                }
+              });
+            })(user);
+          }
+        }
       }
     </script>
   </head>

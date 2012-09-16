@@ -31,6 +31,9 @@ function onRequestReceived(request, response) {
       response.writeHead(200, {'Content-Type': 'text/html'});
       response.end(page);
       break;
+    case '/update':
+      doUpdate(response, parsed_url);
+      break;
     default:
       response.writeHead(200, {'Content-Type': 'text/plain'});
       response.end('NodeJS server is working' + "\n");
@@ -67,5 +70,22 @@ function doMapDataResponse(response, parsed_url) {
         response.end();
       }
     });
+  });
+}
+
+function doUpdate(response, parsed_url) {
+  var item = collection.findOne({'username': parsed_url.query.username}, function(err, item) {
+    response.writeHead(200, {'Content-Type': 'text/plain'});
+
+    if (!item) {
+      response.end('Item has not been found');
+      return;
+    }
+
+    item.Xa = parsed_url.query.Xa;
+    item.Ya = parsed_url.query.Ya;
+    collection.save(item);
+
+    response.end('Data has been updated: ' + item._id);
   });
 }
