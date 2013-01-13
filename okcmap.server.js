@@ -82,7 +82,7 @@ function doUpdate(response, parsed_url) {
       return;
     }
 
-    item.Xa = parsed_url.query.Xa;
+    item.Za = parsed_url.query.Za;
     item.Ya = parsed_url.query.Ya;
     collection.save(item);
 

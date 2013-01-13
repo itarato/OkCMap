@@ -42,10 +42,10 @@
         console.log(response);
         for (var idx in response) {
           var user = response[idx];
-          if (user.hasOwnProperty('Xa')) {
+          if (user.hasOwnProperty('Za')) {
             var marker = new google.maps.Marker({
               map: map,
-              position: new google.maps.LatLng(user['Xa'], user['Ya'])
+              position: new google.maps.LatLng(user['Za'], user['Ya'])
             });
           }
           else {
@@ -54,7 +54,7 @@
                 if (status == google.maps.GeocoderStatus.OK) {
                   jQuery.ajax({
                     type: 'GET',
-                    url: 'http://localhost:8888/update?username=' + user.username + '&Xa=' + results[0].geometry.location.Xa + '&Ya=' + results[0].geometry.location.Ya,
+                    url: 'http://localhost:8888/update?username=' + user.username + '&Za=' + results[0].geometry.location.Za + '&Ya=' + results[0].geometry.location.Ya,
                     success: function(response) {
                       console.log(response);
                     },
