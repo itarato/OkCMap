@@ -42,10 +42,16 @@
         console.log(response);
         for (var idx in response) {
           var user = response[idx];
-          if (user.hasOwnProperty('Za')) {
+          if (user.hasOwnProperty('lng')) {
             var marker = new google.maps.Marker({
               map: map,
-              position: new google.maps.LatLng(user['Za'], user['Ya'])
+              position: new google.maps.LatLng(user['lat'], user['lng'])
+              // icon: {
+              //   url: 'http://localhost/OkCMap/markers.png',
+              //   size: new google.maps.Size(50, 59),
+              //   anchor: new google.maps.Point(93, 0),
+              //   origin: new google.maps.Point(93, 40)
+              // }
             });
           }
           else {
@@ -54,7 +60,7 @@
                 if (status == google.maps.GeocoderStatus.OK) {
                   jQuery.ajax({
                     type: 'GET',
-                    url: 'http://localhost:8888/update?username=' + user.username + '&Za=' + results[0].geometry.location.Za + '&Ya=' + results[0].geometry.location.Ya,
+                    url: 'http://localhost:8888/update?username=' + user.username + '&lng=' + results[0].geometry.location.lng() + '&lat=' + results[0].geometry.location.lat(),
                     success: function(response) {
                       console.log(response);
                     },

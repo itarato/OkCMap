@@ -82,8 +82,8 @@ function doUpdate(response, parsed_url) {
       return;
     }
 
-    item.Za = parsed_url.query.Za;
-    item.Ya = parsed_url.query.Ya;
+    item.lng = parsed_url.query.lng;
+    item.lat = parsed_url.query.lat;
     collection.save(item);
 
     response.end('Data has been updated: ' + item._id);
